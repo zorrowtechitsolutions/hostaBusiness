@@ -1,11 +1,19 @@
 import { Bell, Menu } from "lucide-react-native";
 import { Pressable, Text, View } from "react-native";
+import { useDrawer } from "../../lib/context/global";
 
-export default function HeaderComponent({ setShowDrawer }: any) {
+export default function HeaderComponent() {
+  const { showDrawer, setShowDrawer } = useDrawer();
+
   return (
     <View className="flex-row items-center justify-between px-5 pt-4">
       <View className="flex-row items-center gap-3">
-        <Pressable className="h-11 w-11 items-center justify-center rounded-full bg-white">
+        <Pressable
+          className="h-11 w-11 items-center justify-center rounded-full bg-white"
+          onPress={() => {
+            setShowDrawer(true);
+          }}
+        >
           <Menu size={23} color="#111827" />
         </Pressable>
 

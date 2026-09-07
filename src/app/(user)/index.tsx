@@ -14,6 +14,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Text } from "@/components/ui/text";
 import HeaderComponent from "../components/common/Header";
+import Sidemenu from "../components/user/menu";
 
 export default function Dashboard() {
   return (
@@ -22,6 +23,8 @@ export default function Dashboard() {
         showsVerticalScrollIndicator={false}
         contentContainerClassName="pb-10"
       >
+        <Sidemenu />
+
         {/* ───────────────── Header ───────────────── */}
         <HeaderComponent />
 
