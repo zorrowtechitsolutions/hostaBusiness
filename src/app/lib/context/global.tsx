@@ -1,8 +1,11 @@
-import React, { createContext, useContext, useState } from "react";
+import BottomSheet from "@expo/ui/community/bottom-sheet";
+import React, { createContext, useContext, useRef, useState } from "react";
 
 type DrawerContextType = {
   showDrawer: boolean;
   setShowDrawer: (open: boolean) => void;
+  sheetRef: any;
+  openSheet: any;
 };
 
 export const DrawerContext = createContext<DrawerContextType | undefined>(
@@ -11,9 +14,16 @@ export const DrawerContext = createContext<DrawerContextType | undefined>(
 
 export function DrawerProvider({ children }: { children: React.ReactNode }) {
   const [showDrawer, setShowDrawer] = useState(false);
+  const sheetRef = useRef<BottomSheet>(null);
+
+  const openSheet = () => {
+    sheetRef.current?.snapToIndex(0);
+  };
 
   return (
-    <DrawerContext.Provider value={{ showDrawer, setShowDrawer }}>
+    <DrawerContext.Provider
+      value={{ showDrawer, setShowDrawer, sheetRef, openSheet }}
+    >
       {children}
     </DrawerContext.Provider>
   );

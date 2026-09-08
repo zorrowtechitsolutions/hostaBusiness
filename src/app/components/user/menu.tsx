@@ -17,6 +17,7 @@ import { Icon } from "@/components/ui/icon";
 import { Pressable } from "@/components/ui/pressable";
 import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
+import { router } from "expo-router";
 import {
   Ambulance,
   Bell,
@@ -60,54 +61,68 @@ export default function Sidemenu() {
     {
       icon: User,
       label: "Patients",
-      isPage: true,
+      route: "/screen/Patients",
     },
     {
       icon: Stethoscope,
       label: "Doctors",
-      isPage: true,
+      route: "/screen/Doctors",
     },
     {
       icon: Calendar,
       label: "Appointments",
-      isPage: true,
+      route: "/screen/Appointments",
     },
     {
       icon: Wallet,
       label: "Visits",
-      isPage: true,
+      route: "/screen/Visits",
     },
     {
       icon: Ambulance,
       label: "Ambulance",
-      isPage: true,
+      route: "/screen/Ambulance",
     },
     {
       icon: Droplet,
       label: "Blood Bank",
-      isPage: true,
+      route: "/screen/BloodBank",
     },
     {
       icon: Users,
       label: "Staff",
-      isPage: true,
+      route: "/screen/Staff",
     },
     {
       icon: Bell,
       label: "Notifications",
-      isPage: false,
       subItems: [
-        { icon: Mail, label: "Email Notifications" },
-        { icon: FileText, label: "Email Templates" },
+        {
+          icon: Mail,
+          label: "Email Notifications",
+          route: "/screen/Notifications",
+        },
+        {
+          icon: FileText,
+          label: "Email Templates",
+          route: "/screen/EmailTemplates",
+        },
       ],
     },
     {
       icon: UserCog,
       label: "User Management",
-      isPage: false,
       subItems: [
-        { icon: Users, label: "Users" },
-        { icon: UserShield, label: "Group Permissions" },
+        {
+          icon: Users,
+          label: "Users",
+          route: "/screen/users",
+        },
+        {
+          icon: UserShield,
+          label: "Group Permissions",
+          route: "/screen/group-permissions",
+        },
       ],
     },
   ];
@@ -149,10 +164,11 @@ export default function Sidemenu() {
 
               return (
                 <Box key={index}>
-                  <Pressable
+                  {/* <Pressable
                     onPress={() => {
                       if (hasSubItems) {
                         toggleMenu(item.label);
+                        router.push("/screen/Patients");
                       } else {
                         handleMenuSelect(item.label);
                       }
@@ -163,6 +179,29 @@ export default function Sidemenu() {
                         : isExpanded
                           ? "bg-blue-50 border border-blue-200"
                           : "hover:bg-white hover:shadow-sm"
+                    }`}
+                  > */}
+
+                  <Pressable
+                    onPress={() => {
+                      if (hasSubItems) {
+                        toggleMenu(item.label);
+                        return;
+                      }
+
+                      setSelectedMenu(item.label);
+                      setShowDrawer(false);
+
+                      if (item.route) {
+                        router.push(item.route as any);
+                      }
+                    }}
+                    className={`flex-row items-center justify-between px-4 py-3 rounded-xl ${
+                      isSelected && !hasSubItems
+                        ? "bg-blue-600"
+                        : isExpanded
+                          ? "bg-blue-50 border border-blue-200"
+                          : "bg-white"
                     }`}
                   >
                     <HStack space="sm" className="items-center flex-1">
